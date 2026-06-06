@@ -2,31 +2,44 @@
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 mt-8">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Videos</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {% for video in videos %}
         <div class="cursor-pointer group">
             
-            <div class="w-full aspect-video bg-blue-800 rounded-lg mb-3 group-hover:opacity-90 transition"></div>
+            {% if video.thumbnail %}
+            <div class="w-full aspect-video rounded-xl mb-3 overflow-hidden group-hover:opacity-90 transition shadow-sm">
+                <img src="{{ video.thumbnail }}" alt="{{ video.video_title }}" class="w-full h-full object-cover">
+            </div>
+            {% else %}
+            <div class="w-full aspect-video rounded-xl mb-3 group-hover:opacity-90 transition shadow-sm
+                {% cycle 'bg-red-600' 'bg-sky-400' 'bg-red-700' 'bg-blue-900' 'bg-purple-900' 'bg-amber-500' 'bg-slate-700' 'bg-emerald-700' %}">
+            </div>
+            {% endif %}
             
             <div class="flex justify-between items-start">
-                <h3 class="text-sm font-bold text-gray-900 leading-tight line-clamp-2">
-                    {{ video.title }}
+                <h3 class="text-sm font-bold text-gray-900 leading-tight line-clamp-2 pr-1">
+                    {{ video.video_title }}
                 </h3>
                 
-                <button class="text-gray-500 hover:text-gray-800 ml-2">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                <button class="text-gray-400 hover:text-gray-700 flex-shrink-0 pt-0.5">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
                 </button>
             </div>
             
-            <p class="text-xs text-gray-500 mt-1">
-                {{ video.views_count }} views &bull; {{ video.created_at|timesince }} ago
+            <p class="text-xs text-gray-500 mt-1 font-medium">
+                999k views &bull; {% if video.date_created %}{{ video.date_created }}{% else %}2 weeks ago{% endif %}
             </p>
             
         </div>
+        {% empty %}
+        <div class="col-span-full text-center py-12 text-gray-400">
+            No videos found. Try uploading one!
+        </div>
         {% endfor %}
-
     </div>
 </div>
 {% endblock %}

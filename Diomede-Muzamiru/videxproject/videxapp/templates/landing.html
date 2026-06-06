@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block header %}{% endblock %}
 
 {% block content %}
-<div class="text-center flex flex-col items-center select-none">
-        
-        <div class="flex items-center justify-center space-x-4 mb-10">
-            
-        </div>
+<div class="flex flex-col items-center justify-center min-h-[90vh] text-center select-none bg-white">
+    
+    <div class="mb-10 w-full max-w-[320px] mx-auto">
+        <img src="{% static 'images/videx.png' %}" alt="Videx Logo" class="w-full h-auto object-contain">
+    </div>
 
-        <div class="w-full">
-            <a href="{% url 'video_grid' %}" 
-               class="inline-block w-56 border-2 border-[#FF0000] text-[#FF0000] font-bold py-3 rounded-md text-sm tracking-widest uppercase hover:bg-red-50 active:bg-red-100 transition duration-150 ease-in-out">
-                Join
-            </a>
-        </div>
-        
+    <div class="w-full">
+        <a href="{% url 'video_grid' %}" 
+           class="inline-block w-56 border-2 border-[#FF0000] text-[#FF0000] font-bold py-3 rounded-md text-sm tracking-widest uppercase hover:bg-red-50 active:bg-red-100 transition duration-150 ease-in-out">
+            Join
+        </a>
     </div>
     
+</div>
 {% endblock %}

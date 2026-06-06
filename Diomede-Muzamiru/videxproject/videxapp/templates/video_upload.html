@@ -1,51 +1,70 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-6xl mx-auto px-4 py-10">
+<div class="max-w-6xl mx-auto py-6">
     <h1 class="text-3xl font-bold text-gray-900 mb-8">Upload your video</h1>
 
-    <form method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <form method="POST" enctype="multipart/form-data" novalidate class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-6">
         {% csrf_token %}
 
-        <div>
-               {{ form. }}
-
-        </div>
-
-        
+        <div class="space-y-5 flex flex-col justify-between">
+            
+            <div>
+                <div class="{% if form.video_title.errors %} [&>input]:border-red-500 [&>input]:focus:ring-red-500 {% endif %}">
+                    {{ form.video_title }}
+                </div>
+                {% for error in form.video_title.errors %}
+                    <span class="text-xs text-red-500 mt-1 block">Required field</span>
+                {% endfor %}
+            </div>
 
             <div>
                 {{ form.description }}
             </div>
 
-           <div class="relative">
-                {{ form.quality }}
-                
+            <div class="relative">
+                <div class="{% if form.video_quality.errors %} [&>select]:border-red-500 [&>select]:focus:ring-red-500 {% endif %}">
+                    {{ form.video_quality }}
                 </div>
-        
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                    <i class="fa-solid fa-chevron-down text-sm"></i>
+                </div>
+                {% for error in form.video_quality.errors %}
+                    <span class="text-xs text-red-500 mt-1 block">Required field</span>
+                {% endfor %}
+            </div>
 
             <div>
-                {{ form.date_created }}
-            </div>
-    
-
-               
-            <div class="">
-            
-                <span class="">Upload video</span>
-            </div>
-
-            <div class="">
-                <input type="file" name="thumbnail" id="id_thumbnail" class="">
-                
-                <div class="">
-                    
-                    <span class="">Upload Thumbnail</span>
+                <div class="{% if form.date_created.errors %} [&>input]:border-red-500 [&>input]:focus:ring-red-500 {% endif %}">
+                    {{ form.date_created }}
                 </div>
+                {% for error in form.date_created.errors %}
+                    <span class="text-xs text-red-500 mt-1 block">Required field</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="space-y-5 flex flex-col justify-between">
+            
+            <div>
+                {{ form.video_file }}
+                <label for="video_upload_input" class="w-full h-44 bg-gray-200 border-2 border-dashed {% if form.video_file.errors %}border-red-500{% else %}border-gray-300{% endif %} rounded-xl flex flex-col items-center justify-center text-gray-400 hover:bg-gray-300/50 transition cursor-pointer select-none">
+                    <span class="text-sm font-semibold">Upload video</span>
+                </label>
+                {% for error in form.video_file.errors %}
+                    <span class="text-xs text-red-500 mt-1 block">Required field</span>
+                {% endfor %}
+            </div>
+
+            <div>
+                {{ form.thumbnail }}
+                <label for="thumbnail_upload_input" class="w-full h-44 bg-white border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center text-gray-400 hover:bg-gray-50 transition cursor-pointer relative select-none">
+                    <span class="text-sm font-semibold">Upload Thumbnail</span>
+                </label>
             </div>
 
             <div class="pt-2">
-                <button type="submit" >
+                <button type="submit" class="w-full bg-[#FF0000] text-white font-bold py-3.5 rounded-lg text-sm tracking-wider uppercase border-2 border-[#FF0000] hover:bg-white hover:text-[#FF0000] transition duration-200 ease-in-out shadow-md">
                     Upload
                 </button>
             </div>

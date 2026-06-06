@@ -3,29 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Videx</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        // Forces Tailwind to globally apply its default system sans font 
+        // across every HTML tag, input placeholder, and button text universally
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', '"Noto Sans"', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    {% block head %}{% endblock %}
 </head>
-<body>
-   {% block header %}
-     
-    <div class="flex justify-between items-center mb-8">
-        <a href="{% url 'landing' %}" class="flex items-center space-x-2 select-none group">
-           <img 
-           src="" alt="">
-            <span class="text-4xl font-black text-[#FF0000] tracking-tight font-sans">Videx</span>
+<body class="font-sans antialiased bg-white text-gray-900">
+
+    {% block header %}
+    <header class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center bg-white">
+        <a href="{% url 'video_grid' %}" class="flex items-center gap-2">
+            <img src="/static/images/videx.png" alt="Videx Logo" class="h-8 w-auto">
         </a>
-        
-        <a href="{% url 'video_upload' %}" class="border-2 border-[#FF0000] text-[#FF0000] font-bold px-6 py-2 rounded-lg hover:bg-red-50 transition duration-150 text-sm">
+        <a href="{% url 'video_upload' %}" class="border-2 border-[#FF0000] text-[#FF0000] font-bold px-6 py-2 rounded-lg text-sm tracking-wider uppercase hover:bg-red-50 transition duration-150">
             Add Video
         </a>
-    </div>
-    {% endblock %}
-    {% block content %}
-        
-    {% endblock %}
-    
+    </header>
+    {% endblock header %}
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
 </body>
 </html>
